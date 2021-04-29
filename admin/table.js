@@ -1,14 +1,13 @@
-import angular from 'angular';
-
-// Create the module where our functionality can attach to
-let homeModule = angular.module('home', []);
-
-// Include our UI-Router config settings
-import HomeConfig from './home.config';
-homeModule.config(HomeConfig);
-
-// Controllers
-import HomeCtrl from './home.controller';
-homeModule.controller('HomeCtrl', HomeCtrl);
-
-export default homeModule;
+function renderTable(){
+    var order= firebase.database().ref("order/");
+    order.on("child_added",function(data){
+        var orderValue =data.val();
+        document.getElementById("table").innerHTML+=`
+            <tr>
+                <td> ${orderValue.id}</td>
+                <td> ${orderValue.order}</td>
+                <td> ${orderValue.total}</td>
+            </tr>
+        `;
+    })
+};
